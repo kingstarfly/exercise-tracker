@@ -7,7 +7,6 @@ import ExercisesList from "./components/ExercisesList";
 function App() {
   return (
     <Router>
-      <Navbar />
       <Route path="/" exact component={ExercisesList} />
       <Route path="/edit/:id" component={EditExercise} />
       <Route path="/create" exact component={CreateExercise} />

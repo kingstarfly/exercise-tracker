@@ -4,11 +4,15 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 
 import { ChakraProvider } from "@chakra-ui/react";
+import { QueryClient, QueryClientProvider } from "react-query";
+import theme from "./styles/theme";
 
 ReactDOM.render(
   <React.StrictMode>
-    <ChakraProvider>
-      <App />
+    <ChakraProvider theme={theme}>
+      <QueryClientProvider client={new QueryClient()}>
+        <App />
+      </QueryClientProvider>
     </ChakraProvider>
   </React.StrictMode>,
   document.getElementById("root")
