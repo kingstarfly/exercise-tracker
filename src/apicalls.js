@@ -10,6 +10,11 @@ export const postExercise = async (exercise) => {
   console.log(res.data);
 };
 
+export const getUsers = async () => {
+  let res = await axios.get("http://localhost:5000/users");
+  return res.data;
+};
+
 export const createUser = async (user) => {
   let res = await axios.post("http://localhost:5000/users/add", user);
   console.log("created User Success.");

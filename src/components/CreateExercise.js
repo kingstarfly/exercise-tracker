@@ -11,12 +11,14 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import PageShell from "./PageShell";
 import { useHistory } from "react-router-dom";
-import { postExercise } from "../apicalls";
-import { useMutation, useQueryClient } from "react-query";
+import { getUsers, postExercise } from "../apicalls";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 
 export default function CreateExercise() {
   const { register, handleSubmit, errors } = useForm();
   let history = useHistory();
+  const { data: users, isSuccess } = useQuery("users", getUsers);
+
   const queryClient = useQueryClient();
   const mutation = useMutation(postExercise, {
     onSuccess: () => {
@@ -29,6 +31,10 @@ export default function CreateExercise() {
     mutation.mutate(formData);
     history.push("/");
   };
+
+  if (!isSuccess) {
+    return null;
+  }
 
   return (
     <PageShell>
@@ -46,10 +52,11 @@ export default function CreateExercise() {
         <FormControl>
           <FormLabel>Username</FormLabel>
           <Select name="username" ref={register}>
-            <option value="a">a</option>
-            <option value="b">b</option>
-            <option value="c">c</option>
-            <option value="d">d</option>
+            {users.map((user) => (
+              <option key={user._id} value={user.username}>
+                {user.username}
+              </option>
+            ))}
           </Select>
         </FormControl>
 
@@ -84,7 +91,7 @@ export default function CreateExercise() {
           />
         </FormControl>
         <Button type="submit" colorScheme="green" mt={8}>
-          Create
+          Create Exercise!
         </Button>
       </Flex>
     </PageShell>

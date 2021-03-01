@@ -6,11 +6,13 @@ import reportWebVitals from "./reportWebVitals";
 import { ChakraProvider } from "@chakra-ui/react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import theme from "./styles/theme";
+import { Fonts } from "./components/Fonts";
 
 ReactDOM.render(
   <React.StrictMode>
     <ChakraProvider theme={theme}>
       <QueryClientProvider client={new QueryClient()}>
+        <Fonts />
         <App />
       </QueryClientProvider>
     </ChakraProvider>
